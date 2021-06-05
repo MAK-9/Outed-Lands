@@ -9,9 +9,17 @@ public class InputManager : MonoBehaviour
 
     private InputActions input;
 
+    private bool didJump = false;
+
     private void Awake()
     {
         input = new InputActions();
+    }
+
+    private void Start()
+    {
+        input.Jetpack.Jump.performed += _ => DidJump();
+        input.Jetpack.Jump.canceled += _ => DidntJump();
     }
 
     private void OnEnable()
@@ -35,9 +43,18 @@ public class InputManager : MonoBehaviour
         return vector2.y;
     }
 
+    private void DidntJump()
+    {
+        didJump = false;
+    }
+    private void DidJump()
+    {
+        didJump = true;
+    }
+
     public bool Jump()
     {
-        return input.Jetpack.Jump.ReadValue<bool>();
+        return didJump;
     }
 
     public Vector2 GetMouseDelta()

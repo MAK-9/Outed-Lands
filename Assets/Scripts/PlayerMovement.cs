@@ -9,7 +9,10 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField] private float movementSpeed=5f;
-    [SerializeField] private float jumpForce=3f;
+    [SerializeField] private float jumpForce=0.5f;
+    [SerializeField] private float playerSpeed = 1f;
+
+    private bool isGrounded = false;
 
     private void Awake()
     {
@@ -21,30 +24,47 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Jump();
+        Look();
     }
 
     void Move()
     {
-        Vector3 moveVector = new Vector3(0f, 0f, 0f)
-        {
-            x = movementSpeed * input.GetHorizontalAxis(), z = movementSpeed * input.GetVerticalAxis()
-        };
+        Vector3 moveVector = new Vector3();
+        moveVector = transform.forward * input.GetVerticalAxis() + transform.right * input.GetHorizontalAxis();
+        moveVector *= Time.deltaTime * playerSpeed;
 
 
         rb.AddForce(moveVector);
     }
 
+    void Look()
+    {
+        float mouseDeltaX = input.GetMouseDelta().x;
+        transform.Rotate(new Vector3(0f,mouseDeltaX,0f));
+    }
+
     void Jump()
     {
-        if (IsGrounded() && input.Jump())
+        if (isGrounded && input.Jump())
         {
             rb.AddForce(new Vector3(0, jumpForce, 0),ForceMode.Impulse);
+            Debug.Log("JUMP");
+        }
+    }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
         }
     }
 
-    bool IsGrounded()
+    private void OnCollisionExit(Collision collision)
     {
-        //TODO implement this
-        return true;
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }
