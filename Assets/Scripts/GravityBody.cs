@@ -7,21 +7,16 @@ public class GravityBody : MonoBehaviour
 {
     private Vector3 gravityVectorNormalized;
     public GravitySource[] attractors;
-
-    private void Awake()
-    {
-        
-    }
-
+    
     // attract body to gravity vector
-    void Attract(Rigidbody rb)
+    public Vector3 GetAttractVector()
     {
-        rb.AddForce(gravityVectorNormalized);
+        return CalculateGravityDirectionVector() * attractors[0].strength;
     }
 
-    Vector3 CalculateGravityVector()
+    Vector3 CalculateGravityDirectionVector()
     {
         Vector3 gravityDirection = transform.position - attractors[0].transform.position;
-        return gravityDirection;
+        return gravityDirection * -1;
     }
 }

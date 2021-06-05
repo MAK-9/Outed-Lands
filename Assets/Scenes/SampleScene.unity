@@ -175,10 +175,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1106644891}
+  - component: {fileID: 1106644895}
   - component: {fileID: 1106644893}
   - component: {fileID: 1106644892}
   - component: {fileID: 1106644894}
-  - component: {fileID: 1106644895}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25495366eeb20441ab225362e7bfbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 1
+  strength: 5
   radius: 10
 --- !u!1 &1687258581
 GameObject:

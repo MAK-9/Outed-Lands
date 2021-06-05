@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private GravityBody gravityBody;
+    
     private InputManager input;
     private Rigidbody rb;
 
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     {
         input = GameObject.Find("InputManager").GetComponent<InputManager>();
         rb = GetComponent<Rigidbody>();
+        gravityBody = GetComponent<GravityBody>();
     }
 
     private void Update()
@@ -25,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         Move();
         Jump();
         Look();
+        Fall();
     }
 
     void Move()
@@ -35,6 +39,14 @@ public class PlayerMovement : MonoBehaviour
 
 
         rb.AddForce(moveVector);
+    }
+
+    void Fall()
+    {
+        if (!isGrounded)
+        {
+            rb.AddForce(gravityBody.GetAttractVector());
+        }
     }
 
     void Look()
