@@ -9,6 +9,8 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="CameraScript.cs" t="Include" />
+          <e p="GravityBody.cs" t="Include" />
+          <e p="GravitySource.cs" t="Include" />
           <e p="InputActions.cs" t="Include" />
           <e p="InputManager.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
