@@ -6,7 +6,7 @@ using UnityEngine;
 public class GravityBody : MonoBehaviour
 {
     private Vector3 gravityVectorNormalized;
-    private GravitySource[] attractors;
+    public GravitySource[] attractors;
 
     private void Awake()
     {
@@ -16,6 +16,12 @@ public class GravityBody : MonoBehaviour
     // attract body to gravity vector
     void Attract(Rigidbody rb)
     {
-        rb.AddForce(gravityVectorNormalized * gravityStrength);
+        rb.AddForce(gravityVectorNormalized);
+    }
+
+    Vector3 CalculateGravityVector()
+    {
+        Vector3 gravityDirection = transform.position - attractors[0].transform.position;
+        return gravityDirection;
     }
 }
