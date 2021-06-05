@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class GravityBody : MonoBehaviour
 {
-    private Vector3 gravityVectorNormalized;
     public GravitySource[] attractors;
     
     // attract body to gravity vector
@@ -14,9 +13,10 @@ public class GravityBody : MonoBehaviour
         return CalculateGravityDirectionVector() * attractors[0].strength;
     }
 
-    Vector3 CalculateGravityDirectionVector()
+    public Vector3 CalculateGravityDirectionVector()
     {
         Vector3 gravityDirection = transform.position - attractors[0].transform.position;
+        gravityDirection.Normalize();
         return gravityDirection * -1;
     }
 }

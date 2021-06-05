@@ -31,6 +31,11 @@ public class PlayerMovement : MonoBehaviour
         Fall();
     }
 
+    private void LateUpdate()
+    {
+        AdjustAngleToGravity();
+    }
+
     void Move()
     {
         Vector3 moveVector = new Vector3();
@@ -59,9 +64,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isGrounded && input.Jump())
         {
-            rb.AddForce(new Vector3(0, jumpForce, 0),ForceMode.Impulse);
-            Debug.Log("JUMP");
+            
+            rb.AddForce(gravityBody.CalculateGravityDirectionVector() * (jumpForce * -1),ForceMode.Impulse);
         }
+    }
+
+    void AdjustAngleToGravity()
+    {
+        //transform.rotation.
     }
     
     private void OnCollisionEnter(Collision collision)

@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 5
-  jumpForce: 1
+  jumpForce: 3
   playerSpeed: 1000
 --- !u!136 &1106644894
 CapsuleCollider:
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25495366eeb20441ab225362e7bfbae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 5
+  strength: 15
   radius: 10
 --- !u!1 &1687258581
 GameObject:
