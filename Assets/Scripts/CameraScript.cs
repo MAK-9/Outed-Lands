@@ -25,6 +25,11 @@ public class CameraScript : MonoBehaviour
         //RotateVertical();
     }
 
+    private void LateUpdate()
+    {
+        
+    }
+
     void Move()
     {
         float mouseY = input.GetMouseDelta().y;
@@ -35,7 +40,15 @@ public class CameraScript : MonoBehaviour
         currentPitch -= mouseY * Time.deltaTime * pitchSpeed;
         //currentPitch = Mathf.Clamp(currentPitch, gravityBody.CalculateAngleToPlanetSurface() - 90f, gravityBody.CalculateAngleToPlanetSurface()+90f);
         currentPitch = Mathf.Clamp(currentPitch, - 90f, 90f);
-        transform.rotation = Quaternion.Euler(new Vector3(currentPitch,targetRotation.y,targetRotation.z));
+        Quaternion verticalRotation =  Quaternion.Euler(new Vector3(currentPitch,targetRotation.y,targetRotation.z));
+        
+        //adjust rotation to planet surface
+        Quaternion gravitationalRotation = Quaternion.FromToRotation(transform.up, -1 * gravityBody.CalculateGravityDirectionVector())
+                                           * transform.rotation;
+
+        transform.rotation = verticalRotation * gravitationalRotation;
+        //transform.rotation = Quaternion.Slerp(transform.rotation, gravitationalRotation, Time.deltaTime * 50);
+
     }
 
     void RotateVertical()

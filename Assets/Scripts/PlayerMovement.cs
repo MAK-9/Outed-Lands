@@ -76,8 +76,9 @@ public class PlayerMovement : MonoBehaviour
 
     void AdjustAngleToGravity()
     {
-        Quaternion angleAxis = Quaternion.AngleAxis(gravityBody.CalculateAngleToPlanetSurface(), transform.right);
-        transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * 5);
+      Quaternion targetRotation = Quaternion.FromToRotation(transform.up, -1 * gravityBody.CalculateGravityDirectionVector())
+            * transform.rotation;
+      transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 50);
     }
     
     private void OnCollisionEnter(Collision collision)
