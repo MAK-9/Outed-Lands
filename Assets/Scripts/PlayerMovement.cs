@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -34,6 +35,10 @@ public class PlayerMovement : MonoBehaviour
     private void LateUpdate()
     {
         AdjustAngleToGravity();
+        
+        //debug
+        Debug.DrawRay(transform.position, gravityBody.CalculateGravityDirectionVector(), Color.magenta);
+        Debug.Log("Angle "+gravityBody.CalculateAngleToPlanetSurface());
     }
 
     void Move()
@@ -71,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
 
     void AdjustAngleToGravity()
     {
-        //transform.rotation.
+        Quaternion angleAxis = Quaternion.AngleAxis(gravityBody.CalculateAngleToPlanetSurface(), transform.right);
+        transform.rotation = Quaternion.Slerp(transform.rotation, angleAxis, Time.deltaTime * 5);
     }
     
     private void OnCollisionEnter(Collision collision)

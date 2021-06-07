@@ -7,6 +7,7 @@ public class CameraScript : MonoBehaviour
 {
     private Transform targetTransform;
     private InputManager input;
+    private GravityBody gravityBody;
 
     private float currentPitch = 0f;
     [SerializeField] private float pitchSpeed = 100f;
@@ -15,6 +16,7 @@ public class CameraScript : MonoBehaviour
     {
         targetTransform = GameObject.Find("Player").GetComponent<Transform>();
         input = GameObject.Find("InputManager").GetComponent<InputManager>();
+        gravityBody = GameObject.Find("Player").GetComponent<GravityBody>();
     }
 
     private void Update()
@@ -31,7 +33,8 @@ public class CameraScript : MonoBehaviour
         //this.transform.rotation = targetTransform.rotation;
 
         currentPitch -= mouseY * Time.deltaTime * pitchSpeed;
-        currentPitch = Mathf.Clamp(currentPitch, -90f, 90f);
+        //currentPitch = Mathf.Clamp(currentPitch, gravityBody.CalculateAngleToPlanetSurface() - 90f, gravityBody.CalculateAngleToPlanetSurface()+90f);
+        currentPitch = Mathf.Clamp(currentPitch, - 90f, 90f);
         transform.rotation = Quaternion.Euler(new Vector3(currentPitch,targetRotation.y,targetRotation.z));
     }
 

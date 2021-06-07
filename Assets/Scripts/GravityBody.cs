@@ -6,6 +6,8 @@ using UnityEngine;
 public class GravityBody : MonoBehaviour
 {
     public GravitySource[] attractors;
+
+    private Vector3 gravityDirection;
     
     // attract body to gravity vector
     public Vector3 GetAttractVector()
@@ -15,8 +17,15 @@ public class GravityBody : MonoBehaviour
 
     public Vector3 CalculateGravityDirectionVector()
     {
-        Vector3 gravityDirection = transform.position - attractors[0].transform.position;
+        gravityDirection = attractors[0].transform.position - transform.position;
         gravityDirection.Normalize();
-        return gravityDirection * -1;
+
+        return gravityDirection;
+    }
+
+    public float CalculateAngleToPlanetSurface()
+    {
+        float angle = Mathf.Atan2(gravityDirection.y, gravityDirection.x) * Mathf.Rad2Deg + 90f;
+        return angle;
     }
 }
