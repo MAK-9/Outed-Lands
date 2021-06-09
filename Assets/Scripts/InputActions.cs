@@ -122,6 +122,33 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Camera"",
+            ""id"": ""0485a44a-08e7-466a-986f-3c6018e6a779"",
+            ""actions"": [
+                {
+                    ""name"": ""Look Up/Down"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f956f65a-cfb0-400c-8098-74731af9438c"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""b713df61-76af-465d-9fca-5538a5c613c9"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look Up/Down"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -131,6 +158,9 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Jetpack_LookAround = m_Jetpack.FindAction("LookAround", throwIfNotFound: true);
         m_Jetpack_WSAD = m_Jetpack.FindAction("WSAD", throwIfNotFound: true);
         m_Jetpack_Jump = m_Jetpack.FindAction("Jump", throwIfNotFound: true);
+        // Camera
+        m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
+        m_Camera_LookUpDown = m_Camera.FindAction("Look Up/Down", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -225,10 +255,47 @@ public class @InputActions : IInputActionCollection, IDisposable
         }
     }
     public JetpackActions @Jetpack => new JetpackActions(this);
+
+    // Camera
+    private readonly InputActionMap m_Camera;
+    private ICameraActions m_CameraActionsCallbackInterface;
+    private readonly InputAction m_Camera_LookUpDown;
+    public struct CameraActions
+    {
+        private @InputActions m_Wrapper;
+        public CameraActions(@InputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LookUpDown => m_Wrapper.m_Camera_LookUpDown;
+        public InputActionMap Get() { return m_Wrapper.m_Camera; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
+        public void SetCallbacks(ICameraActions instance)
+        {
+            if (m_Wrapper.m_CameraActionsCallbackInterface != null)
+            {
+                @LookUpDown.started -= m_Wrapper.m_CameraActionsCallbackInterface.OnLookUpDown;
+                @LookUpDown.performed -= m_Wrapper.m_CameraActionsCallbackInterface.OnLookUpDown;
+                @LookUpDown.canceled -= m_Wrapper.m_CameraActionsCallbackInterface.OnLookUpDown;
+            }
+            m_Wrapper.m_CameraActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @LookUpDown.started += instance.OnLookUpDown;
+                @LookUpDown.performed += instance.OnLookUpDown;
+                @LookUpDown.canceled += instance.OnLookUpDown;
+            }
+        }
+    }
+    public CameraActions @Camera => new CameraActions(this);
     public interface IJetpackActions
     {
         void OnLookAround(InputAction.CallbackContext context);
         void OnWSAD(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+    }
+    public interface ICameraActions
+    {
+        void OnLookUpDown(InputAction.CallbackContext context);
     }
 }

@@ -109,6 +109,33 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Camera",
+            "id": "0485a44a-08e7-466a-986f-3c6018e6a779",
+            "actions": [
+                {
+                    "name": "Look Up/Down",
+                    "type": "PassThrough",
+                    "id": "f956f65a-cfb0-400c-8098-74731af9438c",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b713df61-76af-465d-9fca-5538a5c613c9",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look Up/Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

@@ -19,15 +19,9 @@ public class CameraScript : MonoBehaviour
         gravityBody = GameObject.Find("Player").GetComponent<GravityBody>();
     }
 
-    private void Update()
-    {
-        Move();
-        //RotateVertical();
-    }
-
     private void LateUpdate()
     {
-        
+        Look();
     }
 
     void Move()
@@ -55,5 +49,18 @@ public class CameraScript : MonoBehaviour
     {
         float mouseY = input.GetMouseDelta().y;
         transform.Rotate(new Vector3(mouseY,0f,0f));
+    }
+
+    void Look()
+    {
+        float mouseY = input.GetMouseDelta().y;
+        currentPitch -= mouseY * Time.deltaTime * pitchSpeed;
+        currentPitch = Mathf.Clamp(currentPitch,-90f, 90f);
+        Quaternion mouseAim = Quaternion.Euler(new Vector3(currentPitch,0f,0f));
+        Quaternion targetAim = targetTransform.rotation * mouseAim;
+        
+        
+        transform.rotation = targetAim;
+        transform.position = targetTransform.position;
     }
 }

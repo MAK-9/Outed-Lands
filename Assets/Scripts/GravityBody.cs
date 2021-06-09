@@ -8,13 +8,25 @@ public class GravityBody : MonoBehaviour
     public GravitySource[] attractors;
 
     private Vector3 gravityDirection;
-    
+
+    [SerializeField] private float mass = 50f;
+    [SerializeField] float g = 10f; // gravitational constant
+
     // attract body to gravity vector
     public Vector3 GetAttractVector()
     {
-        return CalculateGravityDirectionVector() * attractors[0].strength;
+        // Fg = G * (Mm/r^2)
+        float r = GravitationalDistance();
+        float gravityForce = (g * mass * attractors[0].mass) / (r*r);
+        return CalculateGravityDirectionVector() * gravityForce;
     }
 
+    private float GravitationalDistance()
+    {
+        float distance = Vector3.Distance(transform.position, attractors[0].transform.position);
+        Debug.Log("Distance from the planet = "+distance);
+        return distance;
+    }
     public Vector3 CalculateGravityDirectionVector()
     {
         gravityDirection = attractors[0].transform.position - transform.position;

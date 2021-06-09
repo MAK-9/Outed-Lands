@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class GravitySource : MonoBehaviour
 {
-    public float strength = 1f;
+    public float mass = 10f;
     public float radius = 10f;
 }

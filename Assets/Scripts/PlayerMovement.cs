@@ -37,8 +37,8 @@ public class PlayerMovement : MonoBehaviour
         AdjustAngleToGravity();
         
         //debug
-        Debug.DrawRay(transform.position, gravityBody.CalculateGravityDirectionVector(), Color.magenta);
-        Debug.Log("Angle "+gravityBody.CalculateAngleToPlanetSurface());
+        //Debug.DrawRay(transform.position, gravityBody.CalculateGravityDirectionVector(), Color.magenta);
+        //Debug.Log("Angle "+gravityBody.CalculateAngleToPlanetSurface());
     }
 
     void Move()
@@ -56,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isGrounded)
         {
             rb.AddForce(gravityBody.GetAttractVector());
+            Debug.Log("Falling due to "+gravityBody.GetAttractVector()+" of force!");
         }
     }
 
