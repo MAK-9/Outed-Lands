@@ -5,5 +5,10 @@ using UnityEngine;
 public class GravitySource : MonoBehaviour
 {
     public float mass = 10f;
-    public float radius = 10f;
+    public float gravityRadius = 10f;
+
+    public GravitySource(float mass)
+    {
+        this.mass = mass;
+    }
 }
