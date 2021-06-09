@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 394199876}
   - component: {fileID: 394199875}
   - component: {fileID: 394199878}
+  - component: {fileID: 394199879}
   m_Layer: 0
   m_Name: Moon
   m_TagString: Untagged
@@ -277,6 +278,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTransform: {fileID: 0}
   OrbitDegrees: 1
+--- !u!114 &394199879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394199873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25495366eeb20441ab225362e7bfbae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 10
+  gravityRadius: 10
 --- !u!1 &1106644890
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106644890}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50.1, z: 579}
+  m_LocalPosition: {x: 0, y: 50.1, z: 572.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1298195876}
@@ -370,7 +385,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attractors:
-  - {fileID: 1666809675}
+  - {fileID: 1892748104}
+  - {fileID: 1666809670}
+  - {fileID: 394199873}
   mass: 50
   g: 10
   gravityRadius: 1000
@@ -766,6 +783,7 @@ GameObject:
   - component: {fileID: 1892748107}
   - component: {fileID: 1892748106}
   - component: {fileID: 1892748105}
+  - component: {fileID: 1892748109}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -851,6 +869,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1892748109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892748104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25495366eeb20441ab225362e7bfbae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mass: 10000
+  gravityRadius: 0
 --- !u!1 &2138677391
 GameObject:
   m_ObjectHideFlags: 0

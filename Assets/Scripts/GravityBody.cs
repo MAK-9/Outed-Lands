@@ -5,32 +5,21 @@ using UnityEngine;
 
 public class GravityBody : MonoBehaviour
 {
-    public GravitySource[] attractors;
+    public GameObject[] attractors;
 
     private Vector3 gravityDirection;
 
     [SerializeField] private float mass = 50f;
     [SerializeField] private float g = 10f; // gravitational constant
     [SerializeField] private float gravityRadius = 1000f;
-
-    private void Start()
-    {
-        // TODO: FIX THIS, NULL REFERENCE I AM DUMBASS AND DIDNT ASSIGN THOSE TO ANYTHING
-        GravitySource sun = new GravitySource(1000f);
-        GravitySource moon = new GravitySource(50f);
-        GravitySource planet = new GravitySource(200f);
-
-        attractors[0] = sun;
-        attractors[1] = planet;
-        attractors[2] = moon;
-    }
+    
 
     // attract body to gravity vector
     public Vector3 GetAttractVector()
     {
         // Fg = G * (Mm/r^2)
         float r = GravitationalDistance();
-        float gravityForce = (g * mass * attractors[FindNearestAttractor()].mass) / (r*r);
+        float gravityForce = (g * mass * attractors[FindNearestAttractor()].GetComponent<GravitySource>().mass) / (r*r);
         return CalculateGravityDirectionVector() * gravityForce;
     }
 
