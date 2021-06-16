@@ -614,6 +614,7 @@ GameObject:
   - component: {fileID: 1687258583}
   - component: {fileID: 1687258586}
   - component: {fileID: 1687258587}
+  - component: {fileID: 1687258588}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -771,6 +772,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pitchSpeed: 100
+--- !u!45 &1687258588
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687258581}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: c7683712a60264c40811701efeacd759, type: 2}
 --- !u!1 &1892748104
 GameObject:
   m_ObjectHideFlags: 0
