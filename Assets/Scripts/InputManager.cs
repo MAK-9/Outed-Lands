@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 {
     //TODO make this a singleton
 
+    public static InputManager instance;
     private InputActions input;
 
     private bool didJump = false;
@@ -14,6 +15,7 @@ public class InputManager : MonoBehaviour
     private void Awake()
     {
         input = new InputActions();
+        instance = this;
     }
 
     private void Start()
@@ -60,5 +62,10 @@ public class InputManager : MonoBehaviour
     public Vector2 GetMouseDelta()
     {
         return input.Jetpack.LookAround.ReadValue<Vector2>();
+    }
+
+    public bool ScoutLaunched()
+    {
+        return input.Jetpack.LaunchScout.triggered;
     }
 }

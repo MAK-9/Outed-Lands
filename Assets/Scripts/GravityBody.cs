@@ -5,14 +5,19 @@ using UnityEngine;
 
 public class GravityBody : MonoBehaviour
 {
-    public GameObject[] attractors;
+    private GameObject[] attractors = new GameObject[3];
 
     private Vector3 gravityDirection;
 
     [SerializeField] private float mass = 50f;
     [SerializeField] private float g = 10f; // gravitational constant
     [SerializeField] private float gravityRadius = 1000f;
-    
+
+    private void Start()
+    {
+        PopulateAttractorsArray();
+    }
+
 
     // attract body to gravity vector
     public Vector3 GetAttractVector()
@@ -59,5 +64,12 @@ public class GravityBody : MonoBehaviour
         }
 
         return attractorIndex;
+    }
+
+    void PopulateAttractorsArray()
+    {
+        attractors[0] = GameObject.Find("Sun");
+        attractors[1] = GameObject.Find("/Sun/Planet");
+        attractors[2] = GameObject.Find("/Sun/Planet/Moon");
     }
 }

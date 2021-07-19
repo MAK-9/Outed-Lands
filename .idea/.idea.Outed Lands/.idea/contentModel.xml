@@ -13,7 +13,10 @@
           <e p="GravitySource.cs" t="Include" />
           <e p="InputActions.cs" t="Include" />
           <e p="InputManager.cs" t="Include" />
+          <e p="Orbit.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
+          <e p="Scout.cs" t="Include" />
+          <e p="ScoutLauncher.cs" t="Include" />
           <e p="SimpleCameraController.cs" t="Include" />
         </e>
         <e p="TutorialInfo" t="Include">

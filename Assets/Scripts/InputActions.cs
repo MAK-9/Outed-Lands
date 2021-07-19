@@ -41,6 +41,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""LaunchScout"",
+                    ""type"": ""Button"",
+                    ""id"": ""f801c89e-dec5-4aa9-a4b8-5aa8a4ca0420"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -120,6 +128,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e4899506-7642-4d6b-a66e-a3220ee600f8"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LaunchScout"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -158,6 +177,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Jetpack_LookAround = m_Jetpack.FindAction("LookAround", throwIfNotFound: true);
         m_Jetpack_WSAD = m_Jetpack.FindAction("WSAD", throwIfNotFound: true);
         m_Jetpack_Jump = m_Jetpack.FindAction("Jump", throwIfNotFound: true);
+        m_Jetpack_LaunchScout = m_Jetpack.FindAction("LaunchScout", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_LookUpDown = m_Camera.FindAction("Look Up/Down", throwIfNotFound: true);
@@ -213,6 +233,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Jetpack_LookAround;
     private readonly InputAction m_Jetpack_WSAD;
     private readonly InputAction m_Jetpack_Jump;
+    private readonly InputAction m_Jetpack_LaunchScout;
     public struct JetpackActions
     {
         private @InputActions m_Wrapper;
@@ -220,6 +241,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @LookAround => m_Wrapper.m_Jetpack_LookAround;
         public InputAction @WSAD => m_Wrapper.m_Jetpack_WSAD;
         public InputAction @Jump => m_Wrapper.m_Jetpack_Jump;
+        public InputAction @LaunchScout => m_Wrapper.m_Jetpack_LaunchScout;
         public InputActionMap Get() { return m_Wrapper.m_Jetpack; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -238,6 +260,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Jump.started -= m_Wrapper.m_JetpackActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_JetpackActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_JetpackActionsCallbackInterface.OnJump;
+                @LaunchScout.started -= m_Wrapper.m_JetpackActionsCallbackInterface.OnLaunchScout;
+                @LaunchScout.performed -= m_Wrapper.m_JetpackActionsCallbackInterface.OnLaunchScout;
+                @LaunchScout.canceled -= m_Wrapper.m_JetpackActionsCallbackInterface.OnLaunchScout;
             }
             m_Wrapper.m_JetpackActionsCallbackInterface = instance;
             if (instance != null)
@@ -251,6 +276,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @LaunchScout.started += instance.OnLaunchScout;
+                @LaunchScout.performed += instance.OnLaunchScout;
+                @LaunchScout.canceled += instance.OnLaunchScout;
             }
         }
     }
@@ -293,6 +321,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnLookAround(InputAction.CallbackContext context);
         void OnWSAD(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnLaunchScout(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {
