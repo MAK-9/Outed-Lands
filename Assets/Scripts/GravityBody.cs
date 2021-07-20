@@ -31,7 +31,7 @@ public class GravityBody : MonoBehaviour
     private float GravitationalDistance()
     {
         float distance = Vector3.Distance(transform.position, attractors[FindNearestAttractor()].transform.position);
-        Debug.Log("Distance from the planet = "+distance);
+        //Debug.Log("Distance from the planet = "+distance);
         return distance;
     }
     public Vector3 CalculateGravityDirectionVector()

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Scout : MonoBehaviour
 {
     private Transform cameraTransform;
+    private Transform playerTransform;
     private Rigidbody rb;
     private float launchForce = 15f;
     private GravityBody gravityBody;
@@ -14,6 +15,7 @@ public class Scout : MonoBehaviour
     private void Awake()
     {
         cameraTransform = GameObject.Find("Main Camera").GetComponent<Transform>();
+        playerTransform = GameObject.Find("Player").GetComponent<Transform>();
         rb = GetComponent<Rigidbody>();
         gravityBody = transform.GetComponent<GravityBody>();
     }
@@ -31,7 +33,7 @@ public class Scout : MonoBehaviour
     private void ApplyLaunchForce()
     {
         //TODO fix this vvv
-        rb.AddForce(cameraTransform.position + cameraTransform.forward * launchForce,ForceMode.Impulse);
+        rb.AddForce(playerTransform.forward * launchForce,ForceMode.Impulse);
     }
     
     void Fall()

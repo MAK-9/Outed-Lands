@@ -56,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         if (!isGrounded)
         {
             rb.AddForce(gravityBody.GetAttractVector());
-            Debug.Log("Falling due to "+gravityBody.GetAttractVector()+" of force!");
+            //Debug.Log("Falling due to "+gravityBody.GetAttractVector()+" of force!");
         }
     }
 
