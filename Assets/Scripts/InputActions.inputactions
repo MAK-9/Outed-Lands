@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "TakeShot",
+                    "type": "Button",
+                    "id": "689a0d0a-bd3e-448f-aa2b-c694806cd1c8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -119,11 +127,22 @@
                 {
                     "name": "",
                     "id": "e4899506-7642-4d6b-a66e-a3220ee600f8",
-                    "path": "<Keyboard>/e",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "LaunchScout",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f852865c-0022-49b8-a52c-d17c87fd919b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TakeShot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

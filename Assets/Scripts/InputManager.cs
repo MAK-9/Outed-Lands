@@ -68,4 +68,9 @@ public class InputManager : MonoBehaviour
     {
         return input.Jetpack.LaunchScout.triggered;
     }
+
+    public bool TakeShot()
+    {
+        return input.Jetpack.TakeShot.triggered;
+    }
 }
