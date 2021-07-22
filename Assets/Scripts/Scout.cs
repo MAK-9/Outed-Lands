@@ -23,19 +23,13 @@ public class Scout : MonoBehaviour
     private void Start()
     {
         AdjustRotationToPlayer();
-        //ApplyLaunchForce();
     }
 
     private void Update()
     {
         Fall();
     }
-
-    private void ApplyLaunchForce()
-    {
-        //TODO fix this vvv
-        rb.AddForce(cameraTransform.forward * launchForce,ForceMode.Impulse);
-    }
+    
     
     void Fall()
     {
@@ -46,5 +40,16 @@ public class Scout : MonoBehaviour
     {
         transform.rotation = playerTransform.rotation;
     }
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            if (collision.contacts[0].thisCollider.transform == transform)
+            {
+                transform.up = collision.contacts[0].normal;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
+            } 
+        }
+    }
 }

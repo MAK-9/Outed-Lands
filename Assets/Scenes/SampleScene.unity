@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 1106644896}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -445,6 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoutPrefab: {fileID: 192680623573242034, guid: 471059e2e512f0c44813ce53a7d971fa, type: 3}
   cameraTransform: {fileID: 1687258585}
+  launchForce: 200
 --- !u!1 &1298195875
 GameObject:
   m_ObjectHideFlags: 0
