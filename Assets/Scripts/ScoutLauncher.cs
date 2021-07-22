@@ -8,12 +8,9 @@ public class ScoutLauncher : MonoBehaviour
 {
     public GameObject scoutPrefab;
     private GameObject currentScout;
-    private Transform playerTransform;
+    public Transform cameraTransform;
 
-    private void Awake()
-    {
-        playerTransform = GameObject.Find("Player").GetComponent<Transform>();
-    }
+    public float launchForce = 50f;
 
     private void Update()
     {
@@ -29,6 +26,14 @@ public class ScoutLauncher : MonoBehaviour
         {
             Destroy(currentScout);
         }
-        currentScout = Instantiate(scoutPrefab, transform.position, playerTransform.rotation);
+        currentScout = Instantiate(scoutPrefab, cameraTransform.position + cameraTransform.forward * 1f, quaternion.identity);
+        ApplyForceToScout();
+    }
+
+    void ApplyForceToScout()
+    {
+        Rigidbody scoutRb = currentScout.GetComponent<Rigidbody>();
+        scoutRb.AddForce(cameraTransform.forward * launchForce);
+        //scoutRb.velocity = new Vector3(cameraTransform.forward * )
     }
 }

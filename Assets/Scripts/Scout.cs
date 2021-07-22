@@ -8,7 +8,7 @@ public class Scout : MonoBehaviour
     private Transform cameraTransform;
     private Transform playerTransform;
     private Rigidbody rb;
-    private float launchForce = 15f;
+    private float launchForce = 30f;
     private GravityBody gravityBody;
     private Scout instance;
 
@@ -22,7 +22,8 @@ public class Scout : MonoBehaviour
 
     private void Start()
     {
-        ApplyLaunchForce();
+        AdjustRotationToPlayer();
+        //ApplyLaunchForce();
     }
 
     private void Update()
@@ -33,12 +34,17 @@ public class Scout : MonoBehaviour
     private void ApplyLaunchForce()
     {
         //TODO fix this vvv
-        rb.AddForce(playerTransform.forward * launchForce,ForceMode.Impulse);
+        rb.AddForce(cameraTransform.forward * launchForce,ForceMode.Impulse);
     }
     
     void Fall()
     {
         rb.AddForce(gravityBody.GetAttractVector());
+    }
+
+    void AdjustRotationToPlayer()
+    {
+        transform.rotation = playerTransform.rotation;
     }
     
 }
