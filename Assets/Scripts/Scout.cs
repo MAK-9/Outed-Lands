@@ -11,6 +11,7 @@ public class Scout : MonoBehaviour
     private float launchForce = 30f;
     private GravityBody gravityBody;
     private Scout instance;
+    public event Action landedEvent;
 
     private void Awake()
     {
@@ -47,9 +48,15 @@ public class Scout : MonoBehaviour
         {
             if (collision.contacts[0].thisCollider.transform == transform)
             {
-                transform.up = collision.contacts[0].normal;
-                rb.constraints = RigidbodyConstraints.FreezeAll;
+                LandOnSurface(collision);
+                landedEvent();
             } 
         }
+    }
+
+    void LandOnSurface(Collision collision)
+    {
+        transform.up = collision.contacts[0].normal;
+        rb.constraints = RigidbodyConstraints.FreezeAll;
     }
 }

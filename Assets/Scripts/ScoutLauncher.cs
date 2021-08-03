@@ -9,6 +9,7 @@ public class ScoutLauncher : MonoBehaviour
     public GameObject scoutPrefab;
     private GameObject currentScout;
     public Transform cameraTransform;
+    public AudioSource audioSource;
 
     public float launchForce = 50f;
 
@@ -28,6 +29,7 @@ public class ScoutLauncher : MonoBehaviour
         }
         currentScout = Instantiate(scoutPrefab, cameraTransform.position + cameraTransform.forward * 1f, quaternion.identity);
         ApplyForceToScout();
+        PlayLaunchSound();
     }
 
     void ApplyForceToScout()
@@ -35,5 +37,10 @@ public class ScoutLauncher : MonoBehaviour
         Rigidbody scoutRb = currentScout.GetComponent<Rigidbody>();
         scoutRb.AddForce(cameraTransform.forward * launchForce);
         //scoutRb.velocity = new Vector3(cameraTransform.forward * )
+    }
+
+    void PlayLaunchSound()
+    {
+        audioSource.Play();
     }
 }
