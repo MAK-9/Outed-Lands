@@ -38,6 +38,7 @@ public class Axe : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Interactable interactable = other.gameObject.GetComponent<Interactable>();
-        interactable.Interact(this.gameObject);
+        if(interactable!=null)
+            interactable.Interact(this.gameObject);
     }
 }

@@ -44,7 +44,7 @@ public class Scout : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collision.gameObject.CompareTag("Player"))
+        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Axe"))
         {
             if (collision.contacts[0].thisCollider.transform == transform)
             {
