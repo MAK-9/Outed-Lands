@@ -73,4 +73,9 @@ public class InputManager : MonoBehaviour
     {
         return input.Jetpack.TakeShot.triggered;
     }
+
+    public bool SwingAxe()
+    {
+        return input.Jetpack.PrimaryAction.triggered;
+    }
 }

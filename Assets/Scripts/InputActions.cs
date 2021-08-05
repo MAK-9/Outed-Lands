@@ -57,6 +57,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PrimaryAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""05f63eed-0931-4577-bbab-3de63c52bc73"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -151,11 +159,22 @@ public class @InputActions : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""f852865c-0022-49b8-a52c-d17c87fd919b"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""TakeShot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b73c1db4-d061-44e0-9a68-d9dc11a1bc3a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -198,6 +217,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Jetpack_Jump = m_Jetpack.FindAction("Jump", throwIfNotFound: true);
         m_Jetpack_LaunchScout = m_Jetpack.FindAction("LaunchScout", throwIfNotFound: true);
         m_Jetpack_TakeShot = m_Jetpack.FindAction("TakeShot", throwIfNotFound: true);
+        m_Jetpack_PrimaryAction = m_Jetpack.FindAction("PrimaryAction", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_LookUpDown = m_Camera.FindAction("Look Up/Down", throwIfNotFound: true);
@@ -255,6 +275,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Jetpack_Jump;
     private readonly InputAction m_Jetpack_LaunchScout;
     private readonly InputAction m_Jetpack_TakeShot;
+    private readonly InputAction m_Jetpack_PrimaryAction;
     public struct JetpackActions
     {
         private @InputActions m_Wrapper;
@@ -264,6 +285,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @Jump => m_Wrapper.m_Jetpack_Jump;
         public InputAction @LaunchScout => m_Wrapper.m_Jetpack_LaunchScout;
         public InputAction @TakeShot => m_Wrapper.m_Jetpack_TakeShot;
+        public InputAction @PrimaryAction => m_Wrapper.m_Jetpack_PrimaryAction;
         public InputActionMap Get() { return m_Wrapper.m_Jetpack; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -288,6 +310,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @TakeShot.started -= m_Wrapper.m_JetpackActionsCallbackInterface.OnTakeShot;
                 @TakeShot.performed -= m_Wrapper.m_JetpackActionsCallbackInterface.OnTakeShot;
                 @TakeShot.canceled -= m_Wrapper.m_JetpackActionsCallbackInterface.OnTakeShot;
+                @PrimaryAction.started -= m_Wrapper.m_JetpackActionsCallbackInterface.OnPrimaryAction;
+                @PrimaryAction.performed -= m_Wrapper.m_JetpackActionsCallbackInterface.OnPrimaryAction;
+                @PrimaryAction.canceled -= m_Wrapper.m_JetpackActionsCallbackInterface.OnPrimaryAction;
             }
             m_Wrapper.m_JetpackActionsCallbackInterface = instance;
             if (instance != null)
@@ -307,6 +332,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @TakeShot.started += instance.OnTakeShot;
                 @TakeShot.performed += instance.OnTakeShot;
                 @TakeShot.canceled += instance.OnTakeShot;
+                @PrimaryAction.started += instance.OnPrimaryAction;
+                @PrimaryAction.performed += instance.OnPrimaryAction;
+                @PrimaryAction.canceled += instance.OnPrimaryAction;
             }
         }
     }
@@ -351,6 +379,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnLaunchScout(InputAction.CallbackContext context);
         void OnTakeShot(InputAction.CallbackContext context);
+        void OnPrimaryAction(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {
