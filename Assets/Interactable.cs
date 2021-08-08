@@ -10,12 +10,14 @@ public class Interactable : MonoBehaviour
    private float health = 10f;
    private GameObject woodPrefab;
    private Transform spawnTransform;
+   private Animator animator;
 
    private void Start()
    {
       var loadedPrefab = LoadPrefabFromFile();
       woodPrefab = loadedPrefab as GameObject;
       spawnTransform = GameObject.Find("SpawnTransform").GetComponent<Transform>();
+      animator = GetComponent<Animator>();
    }
    private UnityEngine.Object LoadPrefabFromFile()
    {
@@ -35,6 +37,7 @@ public class Interactable : MonoBehaviour
       {
          //take damage
          TakeDamage();
+         Animate();
       }
    }
 
@@ -59,5 +62,10 @@ public class Interactable : MonoBehaviour
    {
       //instantiate wood prefabs
       Instantiate(woodPrefab, spawnTransform.position, quaternion.identity);
+   }
+
+   void Animate()
+   {
+      animator.SetTrigger("Wobble");
    }
 }
