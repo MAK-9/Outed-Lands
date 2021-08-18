@@ -78,4 +78,9 @@ public class InputManager : MonoBehaviour
     {
         return input.Jetpack.PrimaryAction.triggered;
     }
+
+    public bool ToggleInventory()
+    {
+        return input.Jetpack.ToggleInventory.triggered;
+    }
 }

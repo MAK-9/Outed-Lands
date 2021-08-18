@@ -7,9 +7,13 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private GravityBody gravityBody;
+    private Inventory inventory;
+
+    [SerializeField] private UI_Inventory uiInventory;
     
     private InputManager input;
     private Rigidbody rb;
+    public GameObject inventoryPanel;
 
     [SerializeField] private float movementSpeed=5f;
     [SerializeField] private float jumpForce=0.5f;
@@ -22,6 +26,13 @@ public class PlayerMovement : MonoBehaviour
         input = GameObject.Find("InputManager").GetComponent<InputManager>();
         rb = GetComponent<Rigidbody>();
         gravityBody = GetComponent<GravityBody>();
+        
+        //initialize inventory
+        inventory = new Inventory();
+        uiInventory.SetInventory(inventory);
+
+        //ItemWorld.SpawnItemWorld(transform.position, new Item {itemType = Item.ItemType.Wood, amount = 1});
+        
     }
 
     private void Update()
@@ -30,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         Look();
         Fall();
+        ToggleInventory();
     }
 
     private void LateUpdate()
@@ -95,6 +107,14 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+        }
+    }
+
+    void ToggleInventory()
+    {
+        if (input.ToggleInventory())
+        {
+            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
         }
     }
 }

@@ -65,6 +65,14 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""79e9cba6-2608-4b71-a47d-8d2e1c2ed1ca"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -177,6 +185,17 @@ public class @InputActions : IInputActionCollection, IDisposable
                     ""action"": ""PrimaryAction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a9da3b6d-a2f1-445b-ab27-41518c9d4448"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -218,6 +237,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         m_Jetpack_LaunchScout = m_Jetpack.FindAction("LaunchScout", throwIfNotFound: true);
         m_Jetpack_TakeShot = m_Jetpack.FindAction("TakeShot", throwIfNotFound: true);
         m_Jetpack_PrimaryAction = m_Jetpack.FindAction("PrimaryAction", throwIfNotFound: true);
+        m_Jetpack_ToggleInventory = m_Jetpack.FindAction("ToggleInventory", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_LookUpDown = m_Camera.FindAction("Look Up/Down", throwIfNotFound: true);
@@ -276,6 +296,7 @@ public class @InputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Jetpack_LaunchScout;
     private readonly InputAction m_Jetpack_TakeShot;
     private readonly InputAction m_Jetpack_PrimaryAction;
+    private readonly InputAction m_Jetpack_ToggleInventory;
     public struct JetpackActions
     {
         private @InputActions m_Wrapper;
@@ -286,6 +307,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         public InputAction @LaunchScout => m_Wrapper.m_Jetpack_LaunchScout;
         public InputAction @TakeShot => m_Wrapper.m_Jetpack_TakeShot;
         public InputAction @PrimaryAction => m_Wrapper.m_Jetpack_PrimaryAction;
+        public InputAction @ToggleInventory => m_Wrapper.m_Jetpack_ToggleInventory;
         public InputActionMap Get() { return m_Wrapper.m_Jetpack; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -313,6 +335,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @PrimaryAction.started -= m_Wrapper.m_JetpackActionsCallbackInterface.OnPrimaryAction;
                 @PrimaryAction.performed -= m_Wrapper.m_JetpackActionsCallbackInterface.OnPrimaryAction;
                 @PrimaryAction.canceled -= m_Wrapper.m_JetpackActionsCallbackInterface.OnPrimaryAction;
+                @ToggleInventory.started -= m_Wrapper.m_JetpackActionsCallbackInterface.OnToggleInventory;
+                @ToggleInventory.performed -= m_Wrapper.m_JetpackActionsCallbackInterface.OnToggleInventory;
+                @ToggleInventory.canceled -= m_Wrapper.m_JetpackActionsCallbackInterface.OnToggleInventory;
             }
             m_Wrapper.m_JetpackActionsCallbackInterface = instance;
             if (instance != null)
@@ -335,6 +360,9 @@ public class @InputActions : IInputActionCollection, IDisposable
                 @PrimaryAction.started += instance.OnPrimaryAction;
                 @PrimaryAction.performed += instance.OnPrimaryAction;
                 @PrimaryAction.canceled += instance.OnPrimaryAction;
+                @ToggleInventory.started += instance.OnToggleInventory;
+                @ToggleInventory.performed += instance.OnToggleInventory;
+                @ToggleInventory.canceled += instance.OnToggleInventory;
             }
         }
     }
@@ -380,6 +408,7 @@ public class @InputActions : IInputActionCollection, IDisposable
         void OnLaunchScout(InputAction.CallbackContext context);
         void OnTakeShot(InputAction.CallbackContext context);
         void OnPrimaryAction(InputAction.CallbackContext context);
+        void OnToggleInventory(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {
